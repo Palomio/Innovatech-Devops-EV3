@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
       - name: back-despachos
-        # Reemplaza TU_ID_CUENTA_AWS y la región según corresponda a tu Amazon ECR
-        image: TU_ID_CUENTA_AWS.dkr.ecr.us-east-1.amazonaws.com/back-despachos:latest
+        image: 363163918702.dkr.ecr.us-east-1.amazonaws.com/despacho:lates
         ports:
         - containerPort: 8081
         resources:

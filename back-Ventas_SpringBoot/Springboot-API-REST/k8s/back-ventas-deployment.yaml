@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
       - name: back-ventas
-        # Reemplaza TU_ID_CUENTA_AWS y la región según corresponda a tu Amazon ECR
-        image: TU_ID_CUENTA_AWS.dkr.ecr.us-east-1.amazonaws.com/back-ventas:latest
+        image: 363163918702.dkr.ecr.us-east-1.amazonaws.com/ventas:lates
         ports:
         - containerPort: 8080
         resources:
