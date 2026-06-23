@@ -32,7 +32,7 @@ jobs:
       working-directory: ./back-Ventas_SpringBoot/Springboot-API-REST
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ev3/ventas 
+        ECR_REPOSITORY: ventas 
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -42,7 +42,7 @@ jobs:
       working-directory: ./back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ev3/despachos 
+        ECR_REPOSITORY: despachos 
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
