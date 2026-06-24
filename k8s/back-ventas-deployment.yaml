@@ -56,9 +56,10 @@ spec:
     app: back-ventas
   ports:
   - protocol: TCP
-    port: 8080
+    port: 8082
     targetPort: 8080
 
+---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
