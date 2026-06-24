@@ -26,6 +26,7 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
+
     - name: Build y Push de VENTAS
       working-directory: ./back-Ventas_SpringBoot/Springboot-API-REST
       env:
@@ -52,15 +53,13 @@ jobs:
 
     - name: Aplicar manifiestos y actualizar imágenes
       env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         TAG: ${{ github.sha }}
       run: |
-        # 1. Reemplazar el comodín por el hash real del commit en caliente
-        sed -i "s/__TAG__/$TAG/g" k8s/back-ventas-deployment.yaml
-        sed -i "s/__TAG__/$TAG/g" k8s/back-despachos-deployment.yaml
-
-        # 2. Aplicar los manifiestos corregidos directamente a Kubernetes
         kubectl apply -f k8s/
 
-        # 3. Monitorear el estado del despliegue hasta que termine con éxito
+        kubectl set image deployment/back-ventas-deployment back-ventas=$ECR_REGISTRY/ventas:$TAG
+        kubectl set image deployment/back-despachos-deployment back-despachos=$ECR_REGISTRY/despacho:$TAG
+
         kubectl rollout status deployment/back-ventas-deployment
         kubectl rollout status deployment/back-despachos-deployment
