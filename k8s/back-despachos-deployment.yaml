@@ -34,7 +34,7 @@ metadata:
   name: back-despachos-service
   namespace: default
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: back-despachos
   ports:
