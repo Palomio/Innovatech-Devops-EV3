@@ -1,11 +1,14 @@
-INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_generado) 
-VALUES ('Av. Vitacura 1234, Santiago', 45000, '2026-06-20', 0);
+INSERT IGNORE INTO venta (id_venta, direccion_compra, valor_compra, fecha_compra, despacho_generado) 
+VALUES (1,'Av. Los Leones 1234, Ñuñoa', 15000, '2026-05-20', true);
 
-INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_generado) 
-VALUES ('Calle Los Olivos 567, Concepción', 12500, '2026-06-22', 0);
+INSERT IGNORE INTO venta (id_venta, direccion_compra, valor_compra, fecha_compra, despacho_generado) 
+VALUES (2,'Gran Avenida 7890, El Bosque', 25000, '2026-05-21', true);
 
-INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_generado) 
-VALUES ('Pasaje El Sol 89, Viña del Mar', 89990, '2026-06-23', 1);
+INSERT IGNORE INTO venta (id_venta, direccion_compra, valor_compra, fecha_compra, despacho_generado) 
+VALUES (3,'Av. Irarrazaval 3000, Ñuñoa', 12500, '2026-05-23', true);
 
-INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_generado) 
-VALUES ('Av. El Parrón 4321, La Cisterna', 32000, '2026-06-24', 0);
+INSERT IGNORE INTO venta (id_venta, direccion_compra, valor_compra, fecha_compra, despacho_generado) 
+VALUES (4,'Los Morros 10200, El Bosque', 8990, '2026-05-25', false);
+
+INSERT IGNORE INTO venta (id_venta, direccion_compra, valor_compra, fecha_compra, despacho_generado) 
+VALUES (5,'Pedro de Valdivia 333, Ñuñoa', 45000, '2026-05-26', false);
