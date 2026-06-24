@@ -27,6 +27,23 @@ spec:
           requests:
             cpu: "100m"
             memory: "128Mi"
+        env:
+        - name: DB_ENDPOINT
+          value: "db-service"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_NAME
+          value: "db_desarrollo"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: credenciales-db
+              key: MYSQL_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: credenciales-db
+              key: MYSQL_PASSWORD    
 ---
 apiVersion: v1
 kind: Service
