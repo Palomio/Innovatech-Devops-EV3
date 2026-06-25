@@ -1,67 +1,70 @@
-# 🚀 Innovatech Chile - Plataforma Backend
+# 🔧 Innovatech Chile - Servicios Backend
 
-Este repositorio contiene la capa de servicios y gestión de datos de la plataforma Innovatech Chile. La solución está desarrollada bajo una arquitectura basada en microservicios desacoplados, permitiendo una alta disponibilidad, escalabilidad y facilidad de mantenimiento en entornos Cloud.
+Repositorio encargado de la capa de procesamiento de datos de Innovatech Chile. La solución se encuentra dividida en servicios independientes, cada uno con responsabilidades específicas dentro del flujo de ventas y distribución de productos.
 
-## 🧩 Estructura de la Solución
+## 📌 Componentes del Sistema
 
-La aplicación está compuesta por dos servicios principales:
+### 🛍️ Servicio de Gestión Comercial (`8082`)
 
-### 📦 Servicio de Despachos (`port: 8081`)
+Administra el registro de compras realizadas por los clientes. Permite almacenar nuevas órdenes y consultar información relacionada con el proceso de venta.
 
-Responsable de la administración logística de los pedidos, incluyendo la asignación de camiones, seguimiento de intentos de entrega y actualización del estado final de las órdenes.
+### 🚛 Servicio de Distribución (`8081`)
 
-### 🛒 Servicio de Ventas (`port: 8082`)
+Gestiona las actividades logísticas posteriores a la compra, incluyendo la asignación de transporte, seguimiento de entregas y actualización de estados hasta completar el despacho.
 
-Encargado del registro y consulta de compras realizadas por los clientes, gestionando el ciclo inicial de las órdenes.
+## ☁️ Infraestructura
 
-Los servicios se ejecutan en un clúster de AWS EKS y son accesibles mediante balanceadores de carga de AWS. Además, cuentan con escalamiento automático horizontal (HPA), aumentando o reduciendo réplicas según la demanda del sistema cuando el uso de CPU supera el 50%.
+Los servicios se ejecutan dentro de un entorno Kubernetes administrado mediante AWS EKS. La comunicación externa se realiza utilizando balanceadores de carga proporcionados por AWS.
 
-## 💻 Puesta en Marcha Local
+Para adaptarse a variaciones en la demanda, se implementó escalamiento automático horizontal (HPA), configurado para aumentar la cantidad de pods cuando el consumo promedio de CPU supera el 50%.
 
-### Requisitos Previos
+## 📋 Requisitos para Desarrollo
 
 * Java JDK 17 o superior
 * Apache Maven 3.8+
-* MySQL Server (instalación local o contenedor Docker)
+* MySQL Server
 
-### 🗄️ Configuración de la Base de Datos
+## 🗄️ Preparación de la Base de Datos
 
-1. Iniciar el servidor MySQL utilizando el puerto `3306`.
-2. Crear la base de datos especificada en el archivo `application.properties` (por ejemplo: `db_desarrollo`).
-3. Al iniciar la aplicación, Hibernate generará automáticamente las tablas necesarias (`venta` y `despacho`) según la configuración definida (`update` o `create`). Opcionalmente, se pueden cargar registros iniciales mediante un archivo `data.sql`.
+1. Iniciar una instancia de MySQL.
+2. Crear la base de datos definida en el archivo de configuración de Spring.
+3. Verificar las credenciales configuradas en `application.properties`.
+4. Ejecutar la aplicación para que Hibernate genere automáticamente las estructuras necesarias.
 
-### ▶️ Ejecución del Proyecto
+Dependiendo de la configuración seleccionada, las tablas pueden crearse o actualizarse automáticamente durante el arranque del sistema.
 
-1. Clonar el repositorio:
+## ▶️ Ejecución Local
+
+### Obtener el código fuente
 
 ```bash
 git clone https://github.com/DoomedPlayer/DevopsEV3-back.git
 ```
 
-2. Compilar el proyecto:
+### Compilar el proyecto
 
 ```bash
-mvn clean package
+mvn clean install
 ```
 
-3. Iniciar cada microservicio de forma independiente:
+### Iniciar los servicios
 
 ```bash
 mvn spring-boot:run
 ```
 
-## 🔁 Pipeline de Integración y Despliegue
+Cada microservicio debe ejecutarse desde su respectivo proyecto.
 
-El proyecto incorpora un flujo de automatización mediante GitHub Actions que se ejecuta ante cambios en la rama principal.
+## ⚡ Automatización DevOps
 
-### Flujo Automatizado
+El ciclo de integración y despliegue se encuentra automatizado mediante GitHub Actions.
 
-1. Compilación del código fuente y generación de los archivos `.jar` correspondientes a cada microservicio.
+### Proceso de publicación
 
-2. Creación de imágenes Docker individuales para los servicios de Ventas y Despachos.
+1. Validación y compilación del código fuente.
+2. Generación de los artefactos ejecutables (`.jar`).
+3. Construcción de imágenes Docker para cada servicio.
+4. Publicación de imágenes en Amazon ECR.
+5. Actualización de los recursos desplegados en AWS EKS mediante Kubernetes.
 
-3. Publicación automática de las imágenes en un repositorio privado de Amazon ECR.
-
-4. Actualización del clúster AWS EKS mediante comandos `kubectl`, desplegando las nuevas versiones de los servicios.
-
-5. Gestión segura de credenciales y variables sensibles utilizando GitHub Secrets, evitando almacenar información confidencial dentro del repositorio.
+Las credenciales utilizadas durante el proceso se almacenan mediante GitHub Secrets para evitar la exposición de información sensible dentro del repositorio.
