@@ -47,6 +47,7 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      #se levanta el cluster
     - name: Actualizar Kubeconfig
       run: |
         aws eks update-kubeconfig --region us-east-1 --name EKS-Ev3
